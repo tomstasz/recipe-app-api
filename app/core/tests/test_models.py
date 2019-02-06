@@ -8,8 +8,8 @@ class ModelTests(TestCase):
         """Test creating a new user with an email is successful"""
         email = 'test@onet.pl'
         password = 'Testpass123'
-        user = get_user_model().objects.create_user(email=email, password=password)
+        user = get_user_model().objects.create_user(email=email,
+                                                    password=password)
 
         self.assertEqual(user.email, email)
-        self.assertTrue(user.check_password(password))  # hasło szyfrowane, dlatego używamy funkcji check_password()
-
+        self.assertTrue(user.check_password(password))
