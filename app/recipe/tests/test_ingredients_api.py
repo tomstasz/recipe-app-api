@@ -12,16 +12,16 @@ INGREDIENTS_URL = reverse('recipe:ingredient-list')
 
 
 class PublicIngredientsApiTests(TestCase):
-        """Test the publicly available ingredients API"""
+    """Test the publicly available ingredients API"""
 
-        def setUp(self):
-            self.client = APIClient()
+    def setUp(self):
+        self.client = APIClient()
 
-        def test_login_required(self):
-            """Test that login is required to access the endpoint"""
-            res = self.client.get(INGREDIENTS_URL)
+    def test_login_required(self):
+        """Test that login is required to access the endpoint"""
+        res = self.client.get(INGREDIENTS_URL)
 
-            self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class PrivateIngredientsApiTests(TestCase):
@@ -57,7 +57,10 @@ class PrivateIngredientsApiTests(TestCase):
 
     def test_ingredients_limited_to_user(self):
         """Test that only authenticated user gets list of ingredients"""
-        user2 = get_user_model().objects.create_user('test2@onet.pl', 'testpass2')
+        user2 = get_user_model().objects.create_user(
+            'test2@onet.pl',
+            'testpass2'
+        )
 
         Ingredient.objects.create(user=user2, name='Vinegar')
 
