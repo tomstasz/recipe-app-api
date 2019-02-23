@@ -150,6 +150,7 @@ class PrivateRecipeApiTests(TestCase):
             'time_minutes': 10,
             'price': 7.00
         }
+
         res = self.client.post(RECIPES_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -180,3 +181,24 @@ class PrivateRecipeApiTests(TestCase):
         tags = recipe.tags.all()
         self.assertEqual(len(tags), 1)
         self.assertIn(new_tag, tags)
+
+    def test_full_update_recipe(self):
+        """Test updating recipe with put"""
+        recipe = sample_recipe(user=self.user)
+        recipe.tags.add(sample_tag(user=self.user))
+
+        payload = {
+            'title': 'Spaghetti',
+            'time_minutes': 25,
+            'price': 5.00
+        }
+
+        url = detail_url(recipe.id)
+        self.client.put(url, payload)
+        recipe.refresh_from_db()
+
+        self.assertEqual(recipe.title, payload['title'])
+        self.assertEqual(recipe.time_minutes, payload['time_minutes'])
+        self.assertEqual(recipe.price, payload['price'])
+        tags = recipe.tags.all()
+        self.assertEqual(len(tags), 0)
