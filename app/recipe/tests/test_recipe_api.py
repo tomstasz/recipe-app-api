@@ -50,7 +50,7 @@ def sample_recipe(user, **params):
     return Recipe.objects.create(user=user, **defaults)
 
 
-class PublicREcipeApiTests(TestCase):
+class PublicRecipeApiTests(TestCase):
     """Test unauthenticated recipe API access"""
 
     def setUp(self):
