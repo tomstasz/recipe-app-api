@@ -1,2 +1,10 @@
 # recipe-app-api
-Recipe app API source code
+DRF application built using Test Driven Development, which allowed me to familiarize myself with:
+- Docker
+- Unit Tests
+- Django Rest Framework features
+
+Reference:
+https://www.udemy.com/django-python-advanced/
+
+ 
